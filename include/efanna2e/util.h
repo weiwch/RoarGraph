@@ -95,7 +95,7 @@ void load_gt_meta(const char *filename, unsigned &points_num, unsigned &dim) {
     size_t fsize = (size_t)ss;
     uint32_t calc_contained_pts = (unsigned)((fsize - sizeof(uint32_t) * 2) / (dim) / sizeof(T));
     std::cout << "load gt from file: " << filename << " points_num: " << points_num << " dim: " << dim << std::endl;
-    if (points_num * 2 != calc_contained_pts) {
+    if (points_num != calc_contained_pts) {
         std::cerr << "filename: " << std::string(filename) << std::endl;
         std::cerr << "Data file size wrong! Get points " << calc_contained_pts << " but should have " << points_num
                   << std::endl;

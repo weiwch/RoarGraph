@@ -136,7 +136,7 @@ int main(int argc, char **argv) {
     float *gt_dists = nullptr;
     efanna2e::load_gt_meta<uint32_t>(gt_file.c_str(), gt_pts, gt_dim);
     // efanna2e::load_gt_data<uint32_t>(gt_file.c_str(), gt_pts, gt_dim, gt_ids);
-    efanna2e::load_gt_data_with_dist<uint32_t, float>(gt_file.c_str(), gt_pts, gt_dim, gt_ids, gt_dists);
+    efanna2e::load_gt_data<uint32_t>(gt_file.c_str(), gt_pts, gt_dim, gt_ids);
     efanna2e::Metric dist_metric = efanna2e::INNER_PRODUCT;
     if (dist == "l2") {
         dist_metric = efanna2e::L2;
@@ -211,6 +211,7 @@ int main(int argc, char **argv) {
 
         auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
         float qps = (float)q_pts / ((float)diff / 1000.0);
+
         float recall = ComputeRecall(q_pts, k, gt_dim, res, gt_ids);
         float avg_projection_cmps = 0.0;
         for (size_t i = 0; i < q_pts; ++i) {

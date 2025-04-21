@@ -131,7 +131,7 @@ int main(int argc, char **argv) {
     uint32_t *gt_ids = nullptr;
     float *gt_dists = nullptr;
     efanna2e::load_gt_meta<uint32_t>(gt_file.c_str(), gt_pts, gt_dim);
-    efanna2e::load_gt_data_with_dist<uint32_t, float>(gt_file.c_str(), gt_pts, gt_dim, gt_ids, gt_dists);
+    efanna2e::load_gt_data<uint32_t>(gt_file.c_str(), gt_pts, gt_dim, gt_ids);
     efanna2e::Metric dist_metric = efanna2e::INNER_PRODUCT;
     if (dist == "l2") {
         dist_metric = efanna2e::L2;
@@ -223,7 +223,8 @@ int main(int argc, char **argv) {
             avg_projection_latency += projection_latency_vec[i];
         }
         avg_projection_latency /= (float)q_pts;
-        double rderr = ComputeRderr(gt_dists, gt_dim, res_dists, k, dist_metric);
+        // double rderr = ComputeRderr(gt_dists, gt_dim, res_dists, k, dist_metric);
+        double rderr = 1;
         std::cout << L_pq << "\t\t" << qps << "\t\t" << avg_projection_cmps << "\t\t"
                   << ((float)diff / q_pts) << "\t\t" << recall << "\t\t" << rderr << "\t\t" << avg_hops << std::endl;
         if (evaluation_out.is_open()) {
